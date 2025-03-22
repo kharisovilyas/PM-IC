@@ -1,0 +1,4 @@
+PuLP==2.7.0
+lxml==4.9.1
+progress==1.6
+networkx==2.8.8

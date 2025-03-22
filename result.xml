@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<XMLDocument version="1.0">
+  <comment/>
+  <task>
+    <flows>
+      <type id="1"/>
+      <type id="2"/>
+    </flows>
+    <process>
+      <type id="1" time="0.2">
+        <input>
+          <type id="1" size="1"/>
+        </input>
+        <output>
+          <type id="2" size="1"/>
+        </output>
+      </type>
+      <type id="2" time="0.04">
+        <input>
+          <type id="1" size="1"/>
+        </input>
+        <output>
+          <type id="2" size="1"/>
+        </output>
+      </type>
+      <type id="3" time="0.06666666666666667">
+        <input>
+          <type id="1" size="1"/>
+        </input>
+        <output>
+          <type id="2" size="1"/>
+        </output>
+      </type>
+      <type id="4" time="0.02">
+        <input>
+          <type id="1" size="1"/>
+        </input>
+        <output>
+          <type id="2" size="1"/>
+        </output>
+      </type>
+    </process>
+    <transport>
+      <type id="1" time="1">
+        <input>
+          <type id="2" size="20"/>
+        </input>
+        <output>
+          <type id="2" size="20"/>
+        </output>
+      </type>
+      <type id="2" time="1">
+        <input>
+          <type id="1" size="20"/>
+        </input>
+        <output>
+          <type id="1" size="20"/>
+        </output>
+      </type>
+    </transport>
+    <storage>
+      <type id="1">
+        <input>
+          <type id="1"/>
+          <type id="2"/>
+        </input>
+      </type>
+    </storage>
+    <struct id="1" time="36" start_time="0" end_time="36">
+      <elem id="2" process_1="" storage_1="20"/>
+      <elem id="3" input_1="500.0" process_3="" storage_1="70"/>
+      <elem id="4" process_2="" storage_1="50"/>
+      <elem id="5" input_1="400.0" process_4="" storage_1="70"/>
+      <elem id="7" output_2="" output_1="" process_2="" storage_1="80"/>
+      <link id1="2" id2="4" transport_1="" transport_2=""/>
+      <link id1="3" id2="4" transport_1="" transport_2=""/>
+      <link id1="5" id2="4" transport_1="" transport_2=""/>
+      <link id1="7" id2="2" transport_1="" transport_2=""/>
+      <link id1="7" id2="4" transport_1="" transport_2=""/>
+    </struct>
+    <struct id="2" time="18" start_time="36" end_time="54">
+      <elem id="2" process_1="" storage_1="20"/>
+      <elem id="3" process_3="" storage_1="70"/>
+      <elem id="4" process_2="" storage_1="50"/>
+      <elem id="5" process_4="" storage_1="70"/>
+      <elem id="7" output_2="" output_1="" process_2="" storage_1="80"/>
+      <link id1="2" id2="4" transport_1="" transport_2=""/>
+      <link id1="3" id2="4" transport_1="" transport_2=""/>
+      <link id1="5" id2="4" transport_1="" transport_2=""/>
+      <link id1="7" id2="2" transport_1="" transport_2=""/>
+      <link id1="7" id2="4" transport_1="" transport_2=""/>
+    </struct>
+    <selectors>
+      <selector id="1" sign="0.4">
+        <resultflow flow="2" interval="*" object="*" sign="1.0"/>
+      </selector>
+      <selector id="2" sign="0.35">
+        <resultflow flow="1" interval="*" object="*" sign="1.0"/>
+      </selector>
+      <selector id="3" sign="-0.3">
+        <lost flow="*" interval="*" object="*" sign="1.0"/>
+      </selector>
+    </selectors>
+    <criterion sign="MAX">
+      <selector id="1"/>
+      <selector id="2"/>
+      <selector id="3"/>
+    </criterion>
+    <constraints/>
+  </task>
+</XMLDocument>

@@ -6,7 +6,7 @@
             <type id="2" />
         </flows>
         <process>
-            <type id="1" time="0.04">
+            <type id="1" time="0.004">
                 <input>
                     <type id="1" size="1" />
                 </input>
@@ -14,7 +14,7 @@
                     <type id="2" size="1" />
                 </output>
             </type>
-            <type id="2" time="0.004">
+            <type id="2" time="0.04">
                 <input>
                     <type id="1" size="1" />
                 </input>
@@ -26,18 +26,18 @@
         <transport>
             <type id="1" time="1">
                 <input>
-                    <type id="1" size="20" />
+                    <type id="2" size="20" />
                 </input>
                 <output>
-                    <type id="1" size="20" />
+                    <type id="2" size="20" />
                 </output>
             </type>
             <type id="2" time="1">
                 <input>
-                    <type id="2" size="20" />
+                    <type id="1" size="20" />
                 </input>
                 <output>
-                    <type id="2" size="20" />
+                    <type id="1" size="20" />
                 </output>
             </type>
         </transport>
@@ -50,16 +50,16 @@
             </type>
         </storage>
         <struct id="1" time="143" start_time="1716620401" end_time="1716620544">
-            <elem id="28" input_1="1430.0" process_1="" storage_1="20" />
-            <elem id="29" input_1="1430.0" process_1="" storage_1="20" />
-            <elem id="1905" output_2="" output_1="" process_2="" storage_1="200" />
+            <elem id="28" input_1="1430.0" process_2="" storage_1="20" />
+            <elem id="29" input_1="1430.0" process_2="" storage_1="20" />
+            <elem id="1905" output_2="" output_1="" process_1="" storage_1="200" />
             <link id1="1905" id2="28" transport_1="" transport_2="" />
             <link id1="1905" id2="29" transport_1="" transport_2="" />
         </struct>
         <struct id="2" time="428" start_time="1716620544" end_time="1716620972">
-            <elem id="28" input_1="4280.0" process_1="" storage_1="20" />
-            <elem id="29" input_1="4280.0" process_1="" storage_1="20" />
-            <elem id="1905" output_2="" output_1="" process_2="" storage_1="200" />
+            <elem id="28" input_1="4280.0" process_2="" storage_1="20" />
+            <elem id="29" input_1="4280.0" process_2="" storage_1="20" />
+            <elem id="1905" output_2="" output_1="" process_1="" storage_1="200" />
             <link id1="1905" id2="28" transport_1="" transport_2="" />
         </struct>
         <criterion sign="MAX">
@@ -126,56 +126,48 @@
             </selectors>
         </summary>
         <plan>
-            <from_process object="1905" flow="2" tech="2" interval="1">2840.0</from_process>
-            <from_process object="1905" flow="2" tech="2" interval="2">4300.0</from_process>
-            <from_transport object="28" to_object="1905" flow="1" tech="1" interval="1">1410.0</from_transport>
-            <from_transport object="28" to_object="1905" flow="1" tech="1" interval="2">4300.0</from_transport>
-            <from_transport object="29" to_object="1905" flow="1" tech="1" interval="1">1430.0</from_transport>
+            <from_process object="1905" flow="2" tech="1" interval="1">2860.0</from_process>
+            <from_process object="1905" flow="2" tech="1" interval="2">4280.0</from_process>
+            <from_transport object="28" to_object="1905" flow="1" tech="2" interval="1">1430.0</from_transport>
+            <from_transport object="28" to_object="1905" flow="1" tech="2" interval="2">4280.0</from_transport>
+            <from_transport object="29" to_object="1905" flow="1" tech="2" interval="1">1430.0</from_transport>
             <inputflow object="28" flow="1" interval="1">1430.0</inputflow>
             <inputflow object="28" flow="1" interval="2">4280.0</inputflow>
             <inputflow object="29" flow="1" interval="1">1430.0</inputflow>
             <inputflow object="29" flow="1" interval="2">4280.0</inputflow>
             <lost object="29" flow="1" interval="2">4280.0</lost>
-            <process object="1905" tech="2" interval="1">11.36</process>
-            <process object="1905" tech="2" interval="2">17.2</process>
-            <process object="29" tech="1" interval="1">9.094947e-15</process>
-            <process_all object="1905" interval="1">11.36</process_all>
-            <process_all object="1905" interval="2">17.2</process_all>
-            <process_all object="29" interval="1">9.094947e-15</process_all>
-            <resultflow object="1905" flow="2" interval="1">2840.0</resultflow>
-            <resultflow object="1905" flow="2" interval="2">4300.0</resultflow>
-            <storage object="28" flow="1" tech="1" interval="1">20.0</storage>
+            <process object="1905" tech="1" interval="1">11.44</process>
+            <process object="1905" tech="1" interval="2">17.12</process>
+            <process_all object="1905" interval="1">11.44</process_all>
+            <process_all object="1905" interval="2">17.12</process_all>
+            <resultflow object="1905" flow="2" interval="1">2860.0</resultflow>
+            <resultflow object="1905" flow="2" interval="2">4280.0</resultflow>
             <time object="1" interval="1">143.0</time>
             <time object="2" interval="2">428.0</time>
-            <to_process object="1905" flow="1" tech="2" interval="1">2840.0</to_process>
-            <to_process object="1905" flow="1" tech="2" interval="2">4300.0</to_process>
-            <to_process object="29" flow="1" tech="1" interval="1">2.2737368e-13</to_process>
-            <to_transport object="28" to_object="1905" flow="1" tech="1" interval="1">1410.0</to_transport>
-            <to_transport object="28" to_object="1905" flow="1" tech="1" interval="2">4300.0</to_transport>
-            <to_transport object="29" to_object="1905" flow="1" tech="1" interval="1">1430.0</to_transport>
-            <transport object="28" to_object="1905" tech="1" interval="1">70.5</transport>
-            <transport object="28" to_object="1905" tech="1" interval="2">215.0</transport>
-            <transport object="29" to_object="1905" tech="1" interval="1">71.5</transport>
-            <transport_all object="28" to_object="1905" interval="1">70.5</transport_all>
-            <transport_all object="28" to_object="1905" interval="2">215.0</transport_all>
+            <to_process object="1905" flow="1" tech="1" interval="1">2860.0</to_process>
+            <to_process object="1905" flow="1" tech="1" interval="2">4280.0</to_process>
+            <to_transport object="28" to_object="1905" flow="1" tech="2" interval="1">1430.0</to_transport>
+            <to_transport object="28" to_object="1905" flow="1" tech="2" interval="2">4280.0</to_transport>
+            <to_transport object="29" to_object="1905" flow="1" tech="2" interval="1">1430.0</to_transport>
+            <transport object="28" to_object="1905" tech="2" interval="1">71.5</transport>
+            <transport object="28" to_object="1905" tech="2" interval="2">214.0</transport>
+            <transport object="29" to_object="1905" tech="2" interval="1">71.5</transport>
+            <transport_all object="28" to_object="1905" interval="1">71.5</transport_all>
+            <transport_all object="28" to_object="1905" interval="2">214.0</transport_all>
             <transport_all object="29" to_object="1905" interval="1">71.5</transport_all>
         </plan>
         <techchains>
-            <chain interval="1">
-                <transport object="29" to_object="1905" tech="1" interval="1">71.5</transport>
-                <process object="1905" tech="2" interval="1">11.36</process>
-            </chain>
             <chain interval="2">
-                <transport object="28" to_object="1905" tech="1" interval="2">215.0</transport>
-                <process object="1905" tech="2" interval="2">17.2</process>
+                <transport object="28" to_object="1905" tech="2" interval="2">214.0</transport>
+                <process object="1905" tech="1" interval="2">17.12</process>
             </chain>
             <chain interval="1">
-                <transport object="28" to_object="1905" tech="1" interval="1">70.5</transport>
-                <process object="1905" tech="2" interval="1">11.36</process>
+                <transport object="28" to_object="1905" tech="2" interval="1">71.5</transport>
+                <process object="1905" tech="1" interval="1">11.44</process>
             </chain>
-            <chain interval="2">
-                <transport object="28" to_object="1905" tech="1" interval="2">215.0</transport>
-                <process object="1905" tech="2" interval="2">17.2</process>
+            <chain interval="1">
+                <transport object="29" to_object="1905" tech="2" interval="1">71.5</transport>
+                <process object="1905" tech="1" interval="1">11.44</process>
             </chain>
         </techchains>
     </report>

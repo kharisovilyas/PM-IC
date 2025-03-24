@@ -1,0 +1,31 @@
+{
+  "plan": [
+    {
+      "scId": 28,
+      "gsId": 1905,
+      "timeStart": 1716620401,
+      "timeEnd": 1716620544,
+      "transmitData": 1430.0,
+      "processVolume": 2860.0,
+      "storageSize": 0.0
+    },
+    {
+      "scId": 28,
+      "gsId": 1905,
+      "timeStart": 1716620544,
+      "timeEnd": 1716620972,
+      "transmitData": 4280.0,
+      "processVolume": 4280.0,
+      "storageSize": 0.0
+    },
+    {
+      "scId": 29,
+      "gsId": 1905,
+      "timeStart": 1716620401,
+      "timeEnd": 1716620544,
+      "transmitData": 1430.0,
+      "processVolume": 2860.0,
+      "storageSize": 0.0
+    }
+  ]
+}

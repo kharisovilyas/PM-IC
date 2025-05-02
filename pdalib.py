@@ -12,6 +12,8 @@ from pulp import PULP_CBC_CMD, LpContinuous, lpDot
 
 from bpmn_diagram.main import make_techchains_bpmn_from_report
 
+#have_stars = False
+
 def elprint(j: ET.Element, tab=0):
     print('  '*tab, j, j.attrib, j.text)
     tab += 1
@@ -48,7 +50,12 @@ def iterfind(elem: ET.Element, id, tag: str='selector') -> ET.Element:
         new_elem = iterfind(i, id)
         if new_elem:
             return new_elem
-    if elem.tag == tag and str(elem.attrib['id']) == str(id) if 'id' in elem.attrib else False:
+    #print(elem.tag, tag, elem.attrib['id'] if 'id' in elem.attrib else False, id)
+    #print(type(elem.tag), type(tag), type(elem.attrib['id'] if 'id' in elem.attrib else False), type(id))
+    #input()
+    if (elem.tag == tag and str(elem.attrib['id']) == str(id) if 'id' in elem.attrib else False):
+        #print('Founded!')
+        #input()
         return elem
     else:
         return None
@@ -1381,7 +1388,8 @@ class PDATask(object):
                         return True
             return False
         def make_stars():
-            
+            #global have_stars
+            #have_stars = False
             # функции генерации переменных
             def get_intervals():
                 return sorted(set([elem.attrib['id'] for elem in root.findall('task/struct')]))
@@ -1391,22 +1399,29 @@ class PDATask(object):
                 return sorted(set([elem.attrib['id'] for elem in root.findall('task/struct/elem')]))
             def get_to_objects():
                 return sorted(set([elem.attrib['id1'] for elem in root.findall('task/struct/link')] + \
-                           [elem.attrib['id2'] for elem in root.findall('task/struct/link')]))
+                        [elem.attrib['id2'] for elem in root.findall('task/struct/link')]))
             def get_techs():
                 return sorted(set([elem.attrib['id'] for elem in root.findall('task/process/type')] + \
-                           [elem.attrib['id'] for elem in root.findall('task/transport/type')] + \
-                           [elem.attrib['id'] for elem in root.findall('task/storage/type')]
-                           ))
+                        [elem.attrib['id'] for elem in root.findall('task/transport/type')] + \
+                        [elem.attrib['id'] for elem in root.findall('task/storage/type')]
+                        ))
             
             def get_variables_from_stars(variable):
                 '''Получение переборных значений для указанного тэга где "*"'''
                 star_tags = [k for k,v in variable.attrib.items() if v == "*"]  # Список тэгов, которые надо распаковать ("*")
+                
                 # При рекурсивном вызове могут быть недопустимые сочетания индексов тэгов, нужно их проверить
                 variable_for_check = get_key_from_ET(variable) if not star_tags else ()
                 if variable_for_check not in self._Variables and not star_tags: # переменная бракуется, если она без "звезд" и ее нет среди переменных задачи
                     return []
+                
+                # Если нет звёздочек, возвращаем переменную как есть
                 if not star_tags:
                     return [variable]
+                else:
+                    pass
+                    #global have_stars
+                    #have_stars = True
 
                 variables_from_stars = []
                 # Порядок проверок важен, т.к. существуют зависимости внутри интервалов и т.п., не все переменные простым перебором существуют
@@ -1445,31 +1460,43 @@ class PDATask(object):
                         new_star_variables = get_variables_from_stars(new_variable)
                         if new_star_variables:
                             variables_from_stars.extend(new_star_variables)
-                return variables_from_stars
+                return variables_from_stars #if variables_from_stars else [variable]
             
             # Чтобы учесть все доп. переменные из доп. ограничений необходимо отследить чтобы все генерируемые переменные существовали
             self.collectVariables()
             task = selectors = root.find('task')
             selectors = root.find('task/selectors')
             selectors_tmp = ET.Element(selectors.tag, selectors.attrib)
+            
             for selector in selectors.findall('selector'):
                 selector_tmp = ET.Element(selector.tag, selector.attrib)
                 selectors_tmp.append(selector_tmp)
-                # Пока есть хотя бы одна переменная с "*" - перебираем их и трансформируем в новые готовые переменные без "*"
+                
                 for variable in selector:
                     # Добавляем "распакованные" переменные
                     new_star_variables = get_variables_from_stars(variable)
                     if new_star_variables:
                         for variable_from_stars in new_star_variables:
                             selector_tmp.append(variable_from_stars)
+                    # Если переменная не содержала звёздочек, добавляем её как есть
+                    else:
+                        selector_tmp.append(deepcopy(variable))
+            
+            # Заменяем старые селекторы на новые
             task.remove(selectors)
             task.append(selectors_tmp)
 
         self.buildTechnolog()
         self.buildTechnique()
+        #elprint(root.find('task/selectors'))
+        #global have_stars
+        #while not have_stars:
         make_stars()    # Преобразуем "звездные" переменные в селекторах в нормальные с указанными индексами для формирования целевой функции
+        #elprint(root.find('task/selectors'))
         self.buildConstraints()
+        #while not have_stars:
         make_stars()
+        #elprint(root.find('task/selectors'))
         self.buildCriterion()
         # после формирования ограничений и целевой функции НЕОБХОДИМО собрать переменные с итоговыми индексами
         self.collectVariables()
@@ -1497,6 +1524,8 @@ class PDATask(object):
                 prob += lpDot(x, constr.getAVector(self._Variables)) >= constr.getBValue()
 
         prob.solve(PULP_CBC_CMD(msg=0))
+        #print(prob.status)
+        #print({k:v for k,v in self._Objective.getACoeffDict().items() if v !=0})
         # сбор плана происходит только в случае, если решается вторичная задача (во избежание зацикливания)
         if first_decision_only:
             self._Plan = PDAPlan(

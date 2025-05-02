@@ -13,12 +13,23 @@ def diap_gen(points):
 
 # получаем события видимости из файла
 def get_strdin(request):
-    events = request['connections']
+    events = copy(request['connections'])
     print('events:',len(events))
+    flow_events = request['task']['flows']
+    print('flow_events:',len(flow_events))
 
     # получаем отсортированную последовательность уникальных моментов времени, когда что-то в принципе изменялось в зонах видимости
     points = sorted(list(set([event['begin'] for event in events] + [event['end'] for event in events])))
-
+    # добавляем фиктивные события по прибытию потоков данных вне диапазона структурной динамики
+    flow_points = set()
+    for flow_event in flow_events:
+        flow_start = flow_event.get('input_time_start') or flow_event.get('output_time_start')
+        flow_finish = flow_event.get('input_time_finish') or flow_event.get('output_time_finish')
+        if flow_start and flow_finish:
+            events.append({'begin': flow_start, 'end': flow_finish})
+        if flow_start < points[0] or flow_start > points[-1]: flow_points.add(flow_start)
+        if flow_finish < points[0] or flow_finish > points[-1]: flow_points.add(flow_finish)
+    points = sorted(points + list(flow_points))
     print('points:',len(points))
 
 
@@ -31,7 +42,8 @@ def get_strdin(request):
             if event['begin'] <= diap[0] and diap[1] <= event['end']:
                 from_event = event.get('gsLabel') or event.get('scLable1')
                 to_event = event.get('scLabel') or event.get('scLable2')
-                now.add((from_event, to_event))
+                if from_event and to_event:
+                    now.add((from_event, to_event))
                 data = []
         str_din.append({'id': i+1,'interval': diap[1] - diap[0], 'start_time': diap[0], 'end_time': diap[1], 'connected': sorted(now), 'data': data})
         bar.next()

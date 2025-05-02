@@ -1,0 +1,87 @@
+{
+  "task": {
+      "id": 0,
+      "flows": [
+          {
+              "flow_type_id": 1,
+              "input_workers": [28,29],
+              "input_size": 477000,
+              "input_time_start": 1716620401,
+              "input_time_finish":1716668101
+          },
+          {
+              "flow_type_id": 2,
+              "output_workers": [1905],
+              "output_time_start": 1716620401,
+              "output_time_finish":1716668101
+          },
+          {
+              "flow_type_id": 1,
+              "output_workers": [1905],
+              "output_time_start": 1716620401,
+              "output_time_finish":1716668101
+          }
+      ],
+      "criterion": {
+          "sign": "MAX",
+          "indicators": {
+              "result_flows":         1.0,
+              "result_dirty_flows":   0.0,
+              "lost_flows":           -0.0
+          }
+      },
+      "constraints": [],
+      "indicators": {
+          "result_flows": [
+              {"type": "resultflow", "flow": "2", "interval": "*", "object": "*", "sign": 1.0}
+          ],
+          "result_dirty_flows": [
+              {"type": "resultflow", "flow": "1", "interval": "*", "object": "*", "sign": 1.0}
+          ],
+          "lost_flows": [
+              {"type": "lost", "flow": "*", "interval": "*", "object": "*", "sign": 1.0}
+          ]
+      }
+  },
+  "environment": {
+      "workers": [
+          {
+              "worker_id": [28,29],
+              "operation_ids": [1],
+              "proc_speed": 25,
+              "net_speed": 20,
+              "storage_size": 20
+          },
+          {
+            "worker_id": [1905],
+            "operation_ids": [1],
+            "proc_speed": 250,
+            "net_speed": 20,
+            "storage_size": 200
+        }
+      ],
+      "operations": [
+          {
+              "operation_id": 1,
+              "difficult": 1,
+              "input_flow_type_id": 1,
+              "output_flow_type_id": 2
+          }
+      ]
+  },
+  "connections": 
+  [
+    {
+      "gsLabel": "1905",
+      "scLabel": "29",
+      "begin": 1716620401,
+      "end": 1716620544
+    },
+    {
+      "gsLabel": "1905",
+      "scLabel": "28",
+      "begin": 1716620401,
+      "end": 1716620972
+    }
+  ]
+}

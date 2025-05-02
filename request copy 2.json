@@ -81,6 +81,7 @@
         "criterion": {
             "indicators": {
                 "lost_flows": 0,
+                "result_dirty_flows": 0,
                 "result_flows": 1
             },
             "sign": "MAX"
@@ -133,6 +134,15 @@
                     "object": "*",
                     "sign": 1.0,
                     "type": "lost"
+                }
+            ],
+            "result_dirty_flows": [
+                {
+                    "flow": "1",
+                    "interval": "*",
+                    "object": "*",
+                    "sign": 1.0,
+                    "type": "resultflow"
                 }
             ],
             "result_flows": [

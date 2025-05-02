@@ -16,9 +16,6 @@ python PDAPlanner.py -f request_template.xml -o result
 REM Copy result/request_template_report.xml to report.xml
 COPY "result\request_template_report.xml" "report.xml"
 
-REM Make JSON output file
-python VD_jsonify.py report.xml report.json
-
 REM Remove request_template.xml
 DEL request_template.xml
 

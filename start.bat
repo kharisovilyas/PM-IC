@@ -25,4 +25,10 @@ DEL ID_generator\request_template.xml
 REM Remove the result directory and its contents
 RMDIR result /s /q
 
+REM Convert report to json
+python report_converter.py
+
+REM Generate report from json to xlsx
+python generate_report.py
+
 REM End of the script

@@ -1,31 +1,2242 @@
 {
-  "plan": [
-    {
-      "scId": 28,
-      "gsId": 1905,
-      "timeStart": 1716620401,
-      "timeEnd": 1716620544,
-      "transmitData": 1430.0,
-      "processVolume": 2860.0,
-      "storageSize": 0.0
-    },
-    {
-      "scId": 28,
-      "gsId": 1905,
-      "timeStart": 1716620544,
-      "timeEnd": 1716620972,
-      "transmitData": 4280.0,
-      "processVolume": 4280.0,
-      "storageSize": 0.0
-    },
-    {
-      "scId": 29,
-      "gsId": 1905,
-      "timeStart": 1716620401,
-      "timeEnd": 1716620544,
-      "transmitData": 1430.0,
-      "processVolume": 2860.0,
-      "storageSize": 0.0
+    "XMLDocument": {
+        "@version": 1.0,
+        "comment": null,
+        "task": {
+            "flows": {
+                "type": [
+                    {
+                        "@id": 1
+                    },
+                    {
+                        "@id": 2
+                    }
+                ]
+            },
+            "process": {
+                "type": [
+                    {
+                        "@id": 1,
+                        "@time": 0.004,
+                        "input": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 1
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 1
+                            }
+                        }
+                    },
+                    {
+                        "@id": 2,
+                        "@time": 0.05,
+                        "input": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 1
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 1
+                            }
+                        }
+                    }
+                ]
+            },
+            "transport": {
+                "type": [
+                    {
+                        "@id": 1,
+                        "@time": 1,
+                        "input": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 20.0
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 20.0
+                            }
+                        }
+                    },
+                    {
+                        "@id": 2,
+                        "@time": 1,
+                        "input": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 20.0
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 20.0
+                            }
+                        }
+                    },
+                    {
+                        "@id": 3,
+                        "@time": 1,
+                        "input": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 54.0
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 2,
+                                "@size": 54.0
+                            }
+                        }
+                    },
+                    {
+                        "@id": 4,
+                        "@time": 1,
+                        "input": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 54.0
+                            }
+                        },
+                        "output": {
+                            "type": {
+                                "@id": 1,
+                                "@size": 54.0
+                            }
+                        }
+                    }
+                ]
+            },
+            "storage": {
+                "type": {
+                    "@id": 1,
+                    "input": {
+                        "type": [
+                            {
+                                "@id": 1
+                            },
+                            {
+                                "@id": 2
+                            }
+                        ]
+                    }
+                }
+            },
+            "struct": [
+                {
+                    "@id": 1,
+                    "@time": 3542,
+                    "@start_time": 1741554000,
+                    "@end_time": 1741557542,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                },
+                {
+                    "@id": 2,
+                    "@time": 1,
+                    "@start_time": 1741557542,
+                    "@end_time": 1741557543,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@input_1": 65.0,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                },
+                {
+                    "@id": 3,
+                    "@time": 257,
+                    "@start_time": 1741557543,
+                    "@end_time": 1741557800,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                },
+                {
+                    "@id": 4,
+                    "@time": 380,
+                    "@start_time": 1741557800,
+                    "@end_time": 1741558180,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ],
+                    "link": {
+                        "@id1": 102,
+                        "@id2": 34,
+                        "@transport_1": null,
+                        "@transport_2": null
+                    }
+                },
+                {
+                    "@id": 5,
+                    "@time": 3765,
+                    "@start_time": 1741558180,
+                    "@end_time": 1741561945,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                },
+                {
+                    "@id": 6,
+                    "@time": 480,
+                    "@start_time": 1741561945,
+                    "@end_time": 1741562425,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ],
+                    "link": {
+                        "@id1": 102,
+                        "@id2": 35,
+                        "@transport_1": null,
+                        "@transport_2": null
+                    }
+                },
+                {
+                    "@id": 7,
+                    "@time": 920,
+                    "@start_time": 1741562425,
+                    "@end_time": 1741563345,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                },
+                {
+                    "@id": 8,
+                    "@time": 490,
+                    "@start_time": 1741563345,
+                    "@end_time": 1741563835,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ],
+                    "link": {
+                        "@id1": 102,
+                        "@id2": 34,
+                        "@transport_1": null,
+                        "@transport_2": null
+                    }
+                },
+                {
+                    "@id": 9,
+                    "@time": 965,
+                    "@start_time": 1741563835,
+                    "@end_time": 1741564800,
+                    "elem": [
+                        {
+                            "@id": 34,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 35,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 5,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 7,
+                            "@process_2": null,
+                            "@storage_1": 65.0
+                        },
+                        {
+                            "@id": 3,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        },
+                        {
+                            "@id": 102,
+                            "@output_2": null,
+                            "@process_1": null,
+                            "@storage_1": 200.0
+                        }
+                    ]
+                }
+            ],
+            "criterion": {
+                "@sign": "MAX",
+                "selector": [
+                    {
+                        "@id": 2
+                    },
+                    {
+                        "@id": 1
+                    }
+                ]
+            },
+            "constraints": null,
+            "selectors": {
+                "selector": [
+                    {
+                        "@id": 1,
+                        "@sign": 0,
+                        "lost": [
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 1,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 2,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 3,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 4,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 5,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 6,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 7,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 8,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 1,
+                                "@interval": 9,
+                                "@object": 7,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 34,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 35,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 5,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 7,
+                                "@sign": 1.0
+                            }
+                        ]
+                    },
+                    {
+                        "@id": 2,
+                        "@sign": 1,
+                        "resultflow": [
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 1,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 2,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 3,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 4,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 5,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 6,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 7,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 8,
+                                "@object": 3,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 102,
+                                "@sign": 1.0
+                            },
+                            {
+                                "@flow": 2,
+                                "@interval": 9,
+                                "@object": 3,
+                                "@sign": 1.0
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "report": {
+            "summary": {
+                "criterion": {
+                    "@value": 65.0,
+                    "selector": [
+                        {
+                            "@id": 2,
+                            "@value": 65.0
+                        },
+                        {
+                            "@id": 1,
+                            "@value": 0.0
+                        }
+                    ]
+                },
+                "selectors": {
+                    "selector": [
+                        {
+                            "@id": 1,
+                            "@sign": 0,
+                            "@value": 0.0,
+                            "lost": [
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 1,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 2,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 3,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 4,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 5,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 6,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 7,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 8,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 1,
+                                    "@interval": 9,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 34,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 35,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 5,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 7,
+                                    "@sign": 1.0
+                                }
+                            ]
+                        },
+                        {
+                            "@id": 2,
+                            "@sign": 1,
+                            "@value": 65.0,
+                            "resultflow": [
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 1,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 2,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 3,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 4,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 5,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 6,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 7,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 8,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 102,
+                                    "@sign": 1.0
+                                },
+                                {
+                                    "@flow": 2,
+                                    "@interval": 9,
+                                    "@object": 3,
+                                    "@sign": 1.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "plan": {
+                "from_process": {
+                    "@object": 102,
+                    "@flow": 2,
+                    "@tech": 1,
+                    "@interval": 4,
+                    "#text": 65.0
+                },
+                "from_transport": {
+                    "@object": 34,
+                    "@to_object": 102,
+                    "@flow": 1,
+                    "@tech": 2,
+                    "@interval": 4,
+                    "#text": 65.0
+                },
+                "inputflow": {
+                    "@object": 34,
+                    "@flow": 1,
+                    "@interval": 2,
+                    "#text": 65.0
+                },
+                "process": {
+                    "@object": 102,
+                    "@tech": 1,
+                    "@interval": 4,
+                    "#text": 0.26
+                },
+                "process_all": {
+                    "@object": 102,
+                    "@interval": 4,
+                    "#text": 0.26
+                },
+                "resultflow": {
+                    "@object": 102,
+                    "@flow": 2,
+                    "@interval": 4,
+                    "#text": 65.0
+                },
+                "storage": [
+                    {
+                        "@object": 34,
+                        "@flow": 1,
+                        "@tech": 1,
+                        "@interval": 2,
+                        "#text": 65.0
+                    },
+                    {
+                        "@object": 34,
+                        "@flow": 1,
+                        "@tech": 1,
+                        "@interval": 3,
+                        "#text": 65.0
+                    }
+                ],
+                "time": [
+                    {
+                        "@object": 1,
+                        "@interval": 1,
+                        "#text": 3542.0
+                    },
+                    {
+                        "@object": 2,
+                        "@interval": 2,
+                        "#text": 1.0
+                    },
+                    {
+                        "@object": 3,
+                        "@interval": 3,
+                        "#text": 257.0
+                    },
+                    {
+                        "@object": 4,
+                        "@interval": 4,
+                        "#text": 380.0
+                    },
+                    {
+                        "@object": 5,
+                        "@interval": 5,
+                        "#text": 3765.0
+                    },
+                    {
+                        "@object": 6,
+                        "@interval": 6,
+                        "#text": 480.0
+                    },
+                    {
+                        "@object": 7,
+                        "@interval": 7,
+                        "#text": 920.0
+                    },
+                    {
+                        "@object": 8,
+                        "@interval": 8,
+                        "#text": 490.0
+                    },
+                    {
+                        "@object": 9,
+                        "@interval": 9,
+                        "#text": 965.0
+                    }
+                ],
+                "to_process": {
+                    "@object": 102,
+                    "@flow": 1,
+                    "@tech": 1,
+                    "@interval": 4,
+                    "#text": 65.0
+                },
+                "to_transport": {
+                    "@object": 34,
+                    "@to_object": 102,
+                    "@flow": 1,
+                    "@tech": 2,
+                    "@interval": 4,
+                    "#text": 65.0
+                },
+                "transport": {
+                    "@object": 34,
+                    "@to_object": 102,
+                    "@tech": 2,
+                    "@interval": 4,
+                    "#text": 3.25
+                },
+                "transport_all": {
+                    "@object": 34,
+                    "@to_object": 102,
+                    "@interval": 4,
+                    "#text": 3.25
+                }
+            },
+            "techchains": {
+                "chain": {
+                    "@interval": 4,
+                    "transport": {
+                        "@object": 34,
+                        "@to_object": 102,
+                        "@tech": 2,
+                        "@interval": 4,
+                        "#text": 3.25
+                    },
+                    "process": {
+                        "@object": 102,
+                        "@tech": 1,
+                        "@interval": 4,
+                        "#text": 0.26
+                    }
+                }
+            }
+        }
     }
-  ]
 }

@@ -26,4 +26,10 @@ rm "ID_generator/request_template.xml"
 # Remove the result directory and its contents
 rm -r result
 
+# Convert report to json
+python3 report_converter.py
+
+# Generate report from json to xlsx
+python3 generate_report.py
+
 # End of the script

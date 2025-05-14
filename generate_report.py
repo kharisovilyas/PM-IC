@@ -1,10 +1,12 @@
 import json
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
 import seaborn as sns
-import networkx as nx
 import plotly.graph_objects as go
+import networkx as nx
 import os
+from numbers import Number
+import matplotlib.pyplot as plt
 
 # --- Загрузка данных ---
 def load_json(file_path):
@@ -127,15 +129,14 @@ def extract_flows(data):
     plan = data["XMLDocument"]["report"].get("plan", {})
     flows = {}
 
-    for key in plan:
-        val = plan[key]
-        if not isinstance(val, list):
-            val = [val]
-        for entry in val:
+    for tag in ["inputflow", "resultflow", "process", "transport", "transport_all", "process_all", "lost", "to_process", "from_process", "to_transport", "time", "from_transport"]:
+        entries = plan.get(tag, [])
+        if not isinstance(entries, list):
+            entries = [entries]
+        for entry in entries:
             if "#text" in entry and "@object" in entry and "@interval" in entry:
                 obj = entry["@object"]
                 interval = entry["@interval"]
-                tag = key
                 time = entry["#text"]
 
                 if interval not in flows:
@@ -146,80 +147,62 @@ def extract_flows(data):
 
     return flows
 
-# --- Сохранение в Excel ---
-def save_to_excel(grouped_by_type, interval_summary, flows, filename="analysis_report.xlsx"):
-    with pd.ExcelWriter(filename, engine="openpyxl") as writer:
-        # Типы (process, transport, storage)
-        if grouped_by_type:
-            pd.DataFrame([{
-                "type": k,
-                "total_time": v.get("total_time"),
-                "count": v.get("count"),
-                "min_time": v.get("min_time"),
-                "max_time": v.get("max_time"),
-                "objects": ", ".join(map(str, v.get("objects", [])))
-            } for k, v in grouped_by_type.items()]).to_excel(writer, sheet_name="types", index=False)
-
-        # Интервалы
-        if interval_summary:
-            pd.DataFrame([{
-                "interval": k,
-                "start": v.get("time_start"),
-                "end": v.get("time_end"),
-                "duration": v.get("time_end", 0) - v.get("time_start", 0),
-                "objects": ", ".join(map(str, v.get("objects", [])))
-            } for k, v in interval_summary.items() if v.get("time_start") and v.get("time_end")]).to_excel(
-                writer, sheet_name="intervals", index=False
-            )
-
-        # Flows
-        if flows:
-            flow_rows = []
-            for interval, objs in flows.items():
-                for obj, tags in objs.items():
-                    row = {"interval": interval, "object": obj}
-                    row.update(tags)
-                    flow_rows.append(row)
-            if flow_rows:
-                pd.DataFrame(flow_rows).to_excel(writer, sheet_name="flows", index=False)
-
-    print(f"✅ Данные сохранены в {filename}")
-
-# --- Построение графиков techchains (статичные) ---
-def plot_techchains(data):
-    chains = data["XMLDocument"]["report"]["techchains"].get("chain", [])
-    if not isinstance(chains, list):
-        chains = [chains]
-
-    for i, chain in enumerate(chains):
-        nodes = []
-        edges = []
-
-        prev_node = None
-        for step in chain.values():
-            if isinstance(step, dict) or (isinstance(step, list) and len(step) > 0 and isinstance(step[0], dict)):
-                steps = step if isinstance(step, list) else [step]
-                for s in steps:
-                    name = f"{s.get('@type', '')}({s.get('@id', '')})"
-                    nodes.append(name)
-                    if prev_node:
-                        edges.append((prev_node, name))
-                    prev_node = name
-
+# --- Построение графа связей между elem по link для каждого интервала ---
+def build_link_graphs(interval_data):
+    graphs = {}
+    for interval_id, info in interval_data.items():
         G = nx.DiGraph()
-        G.add_nodes_from(nodes)
-        G.add_edges_from(edges)
+        for id1, id2, _ in info["transports"]:
+            G.add_edge(id1, id2, type="transport")
+        for id1, id2 in info["processes"]:
+            G.add_edge(id1, id2, type="process")
+        graphs[interval_id] = G
 
-        plt.figure(figsize=(10, 4))
-        pos = nx.spring_layout(G)
-        nx.draw(G, pos, with_labels=True, node_size=600, font_size=10, node_color="lightgreen", arrows=True)
-        plt.title(f"Технологическая цепочка {i+1}")
-        plt.savefig(f"plots/techchain_{i+1}.png")
-        plt.close()
+    return graphs
 
-    print("🖼️ Графики techchains сохранены")
+# --- Визуализация нагрузки по времени ---
+def plot_time_usage(interval_data):
+    df_intervals = []
+    for interval_id, info in interval_data.items():
+        duration = info["time_end"] - info["time_start"] if info["time_start"] and info["time_end"] else 0
+        df_intervals.append({
+            "interval": str(interval_id),
+            "start": info["time_start"],
+            "end": info["time_end"],
+            "duration": duration
+        })
 
-# --- Построение интерактивного графа techchains ---
+    df = pd.DataFrame(df_intervals).sort_values("start")
+    plt.figure(figsize=(14, 6))
+    sns.barplot(x="interval", y="duration", data=df, color="skyblue")
+    plt.title("Длительность интервалов")
+    plt.xlabel("Интервал")
+    plt.ylabel("Время (мс)")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig("interval_durations.png")
+    plt.close()
+
+# --- Построение активности объектов ---
+def plot_object_activity(interval_data):
+    activity = {}
+    for interval, info in interval_data.items():
+        for obj in info["objects"]:
+            if obj not in activity:
+                activity[obj] = []
+            activity[obj].append(int(interval))
+
+    df = []
+    for obj, intervals in activity.items():
+        for i in intervals:
+            df.append({"object": obj, "interval": i})
+
+    df = pd.DataFrame(df)
+    fig = px.line(df, x="interval", y="object", title="Активность объектов по интервалам")
+    fig.write_html("plots/object_activity.html")
+    print("📈 График активности объектов сохранён")
+
+# --- Построение графиков techchains ---
 def plot_techchains_interactive(data):
     chains = data["XMLDocument"]["report"]["techchains"].get("chain", [])
     if not isinstance(chains, list):
@@ -271,7 +254,7 @@ def plot_techchains_interactive(data):
         x1, y1 = pos[edge[1]]
         edge_x.extend([x0, x1, None])
         edge_y.extend([y0, y1, None])
-        edge_text.append(edge_labels.get((edge[0], edge[1]), ""))
+        edge_text.append(edge[2]['label'])
 
     edge_trace = go.Scatter(
         x=edge_x,
@@ -310,7 +293,7 @@ def plot_techchains_interactive(data):
     fig = go.Figure(
         data=[edge_trace, node_trace],
         layout=go.Layout(
-            title='<br>⛓️ Интерактивная цепочка технологий',
+            title='<br>⛓️ Интерактивные цепочки технологий',
             titlefont_size=16,
             showlegend=False,
             hovermode='closest',
@@ -324,8 +307,50 @@ def plot_techchains_interactive(data):
     fig.write_html("techchains_interactive.html")
     print("✅ Интерактивный граф techchains сохранён как techchains_interactive.html")
 
+# --- Сохранение в Excel ---
+def save_to_excel(grouped_by_type, interval_summary, flows, filename="analysis_report.xlsx"):
+    os.makedirs("plots", exist_ok=True)
+
+    with pd.ExcelWriter(filename, engine="openpyxl") as writer:
+        # Типы (process, transport, storage)
+        if grouped_by_type:
+            pd.DataFrame([{
+                "type": k,
+                "total_time": v.get("total_time"),
+                "count": v.get("count"),
+                "min_time": v.get("min_time"),
+                "max_time": v.get("max_time"),
+                "objects": ", ".join(map(str, v.get("objects", [])))
+            } for k, v in grouped_by_type.items()]).to_excel(writer, sheet_name="types", index=False)
+
+        # Интервалы
+        if interval_summary:
+            pd.DataFrame([{
+                "interval": k,
+                "start": v.get("time_start"),
+                "end": v.get("time_end"),
+                "duration": v.get("time_end", 0) - v.get("time_start", 0),
+                "objects": ", ".join(map(str, v.get("objects", [])))
+            } for k, v in interval_summary.items() if v.get("time_start") and v.get("time_end")]).to_excel(
+                writer, sheet_name="intervals", index=False
+            )
+
+        # Flows
+        if flows:
+            flow_rows = []
+            for interval, objs in flows.items():
+                for obj, tags in objs.items():
+                    row = {"interval": interval, "object": obj}
+                    row.update(tags)
+                    flow_rows.append(row)
+            if flow_rows:
+                pd.DataFrame(flow_rows).to_excel(writer, sheet_name="flows", index=False)
+
+    print(f"✅ Данные сохранены в {filename}")
+
 # --- Основной запуск ---
 if __name__ == "__main__":
+    #import os
     #os.makedirs("plots", exist_ok=True)
 
     data = load_json("report.json")
@@ -335,5 +360,6 @@ if __name__ == "__main__":
 
     save_to_excel(grouped_by_type, interval_summary, flows)
 
-    #plot_techchains(data)
+    plot_time_usage(interval_summary)
+    #plot_object_activity(interval_summary)
     #plot_techchains_interactive(data)

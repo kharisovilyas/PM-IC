@@ -2089,44 +2089,56 @@
                 }
             },
             "plan": {
-                "from_process": {
-                    "@object": 102,
-                    "@flow": 2,
-                    "@tech": 1,
-                    "@interval": 4,
-                    "#text": 65.0
-                },
-                "from_transport": {
-                    "@object": 34,
-                    "@to_object": 102,
-                    "@flow": 1,
-                    "@tech": 2,
-                    "@interval": 4,
-                    "#text": 65.0
-                },
-                "inputflow": {
-                    "@object": 34,
-                    "@flow": 1,
-                    "@interval": 2,
-                    "#text": 65.0
-                },
-                "process": {
-                    "@object": 102,
-                    "@tech": 1,
-                    "@interval": 4,
-                    "#text": 0.26
-                },
-                "process_all": {
-                    "@object": 102,
-                    "@interval": 4,
-                    "#text": 0.26
-                },
-                "resultflow": {
-                    "@object": 102,
-                    "@flow": 2,
-                    "@interval": 4,
-                    "#text": 65.0
-                },
+                "from_process": [
+                    {
+                        "@object": 102,
+                        "@flow": 2,
+                        "@tech": 1,
+                        "@interval": 4,
+                        "#text": 65.0
+                    }
+                ],
+                "from_transport": [
+                    {
+                        "@object": 34,
+                        "@to_object": 102,
+                        "@flow": 1,
+                        "@tech": 2,
+                        "@interval": 4,
+                        "#text": 65.0
+                    }
+                ],
+                "inputflow": [
+                    {
+                        "@object": 34,
+                        "@flow": 1,
+                        "@interval": 2,
+                        "#text": 65.0
+                    }
+                ],
+                "process": [
+                    {
+                        "@object": 102,
+                        "@tech": 1,
+                        "@interval": 4,
+                        "#text": 0.26
+                    }
+                ],
+                "process_all": [
+                    {
+                        "@object": 102,
+                        "@interval": 4,
+                        "#text": 0.26
+                    }
+                ],
+                "resultflow": [
+                    {
+                        "@object": 102,
+                        "@flow": 2,
+                        "@interval": 4,
+                        "#text": 65.0
+                    }
+                ],
                 "storage": [
                     {
                         "@object": 34,
@@ -2190,34 +2202,42 @@
                         "#text": 965.0
                     }
                 ],
-                "to_process": {
-                    "@object": 102,
-                    "@flow": 1,
-                    "@tech": 1,
-                    "@interval": 4,
-                    "#text": 65.0
-                },
-                "to_transport": {
-                    "@object": 34,
-                    "@to_object": 102,
-                    "@flow": 1,
-                    "@tech": 2,
-                    "@interval": 4,
-                    "#text": 65.0
-                },
-                "transport": {
-                    "@object": 34,
-                    "@to_object": 102,
-                    "@tech": 2,
-                    "@interval": 4,
-                    "#text": 3.25
-                },
-                "transport_all": {
-                    "@object": 34,
-                    "@to_object": 102,
-                    "@interval": 4,
-                    "#text": 3.25
-                }
+                "to_process": [
+                    {
+                        "@object": 102,
+                        "@flow": 1,
+                        "@tech": 1,
+                        "@interval": 4,
+                        "#text": 65.0
+                    }
+                ],
+                "to_transport": [
+                    {
+                        "@object": 34,
+                        "@to_object": 102,
+                        "@flow": 1,
+                        "@tech": 2,
+                        "@interval": 4,
+                        "#text": 65.0
+                    }
+                ],
+                "transport": [
+                    {
+                        "@object": 34,
+                        "@to_object": 102,
+                        "@tech": 2,
+                        "@interval": 4,
+                        "#text": 3.25
+                    }
+                ],
+                "transport_all": [
+                    {
+                        "@object": 34,
+                        "@to_object": 102,
+                        "@interval": 4,
+                        "#text": 3.25
+                    }
+                ]
             },
             "techchains": {
                 "chain": {

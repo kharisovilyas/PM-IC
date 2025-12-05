@@ -28,6 +28,7 @@ import shutil
 arg = argparse.ArgumentParser()
 arg.add_argument('--filename', '-f', nargs='+')
 arg.add_argument('--output_dir', '-o', nargs='+')
+arg.add_argument('--timelimit', '-t', nargs='+')
 args = arg.parse_args()
 
 if args.output_dir:
@@ -45,12 +46,17 @@ if os.path.exists(dir):
     shutil.rmtree(dir)
 os.makedirs(dir)
 
+if args.timelimit:
+    TimeLimit = float(args.timelimit[0])
+else:
+    TimeLimit = None
+
 def main():
     '''Стандартное решение задачи - для всех интервалов сразу'''
-    TASK = PDATask(Filename=filename1, Name=filename)
+    TASK = PDATask(Filename=filename1, Name=filename, TimeLimit=TimeLimit)
 
     print('ЗАДАЧА ЛП\n', len(TASK.CVector), 'переменных и', len(TASK.BVector), 'ограничений')
-    print('Начали оптимизацию...')
+    print('Начали оптимизацию (TimeLimit = ' + str(TASK.TimeLimit) + ' secs)...')
 
     with Profiler('TASK solved'):
         TASK.PLAN
@@ -62,7 +68,7 @@ def main():
     print('Расчет окончен.')
 
     print('Формируем отчет...')
-    with Profiler('REPORT formed'):
+    with Profiler('\nREPORT formed'):
         TASK.REPORT
     print('Отчет сформирован.')
     return TASK

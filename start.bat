@@ -11,7 +11,7 @@ REM Copy ID_generator/request_template.xml to request_template.xml
 COPY "ID_generator\request_template.xml" "request_template.xml"
 
 REM Run the Python script PDAPlanner.py with the specified arguments
-python PDAPlanner.py -f request_template.xml -o result
+python PDAPlanner.py -f request_template.xml -o result -t 300
 
 REM Copy result/request_template_report.xml to report.xml
 COPY "result\request_template_report.xml" "report.xml"
@@ -29,6 +29,6 @@ REM Convert report to json
 python report_converter.py
 
 REM Generate report from json to xlsx
-python generate_report.py
+REM python generate_report.py
 
 REM End of the script

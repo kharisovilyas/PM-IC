@@ -12,7 +12,7 @@ python3 ID_generator/make_task.py -f ID_generator/request_template.json
 cp "ID_generator/request_template.xml" "request_template.xml"
 
 # Run the Python script PDAPlanner.py with the specified arguments
-python3 PDAPlanner.py -f request_template.xml -o result
+python3 PDAPlanner.py -f request_template.xml -o result -t 300
 
 # Copy result/request_template_report.xml to report.xml
 cp "result/request_template_report.xml" "report.xml"

@@ -479,7 +479,7 @@ class PDATask(object):
         res += '\tSIZE: ' + str(self.variablesCount) + ' x ' + str(self.constraintsCount)
         return res
 
-    def __init__(self, Filename: str=None, XML: ET=None, Name = None) -> None:
+    def __init__(self, Filename: str=None, XML: ET=None, Name = None, TimeLimit: float=None) -> None:
         """конструктор класса ЗАДАЧА"""
         self.Name = str(Name) if Name else 'Noname_task'
         #
@@ -492,6 +492,8 @@ class PDATask(object):
         #
         self._Plan = None # PDAPlan
         self._Report = None # XML
+
+        self.TimeLimit = TimeLimit
 
         if Filename:
             self.fromFile(Filename=Filename)
@@ -1523,7 +1525,7 @@ class PDATask(object):
             elif constr.getSign() == '>=':
                 prob += lpDot(x, constr.getAVector(self._Variables)) >= constr.getBValue()
 
-        prob.solve(PULP_CBC_CMD(msg=0))
+        prob.solve(PULP_CBC_CMD(msg=0, timeLimit=self.TimeLimit))
         #print(prob.status)
         #print({k:v for k,v in self._Objective.getACoeffDict().items() if v !=0})
         # сбор плана происходит только в случае, если решается вторичная задача (во избежание зацикливания)

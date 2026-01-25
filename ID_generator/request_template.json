@@ -1,1 +1,207 @@
-{"task":{"id":0,"flows":[{"flow_type_id":1,"input_workers":[34],"input_size":65.0,"input_time_start":1741557542,"input_time_finish":1741557543},{"flow_type_id":2,"output_workers":[3,102],"output_time_start":1741554000,"output_time_finish":1741564800}],"criterion":{"sign":"MAX","indicators":{"result_flows":1,"lost_flows":0}},"constraints":[],"indicators":{"lost_flows":[{"type":"lost","flow":"*","interval":"*","object":"*","sign":1.0}],"result_flows":[{"type":"resultflow","flow":"2","interval":"*","object":"*","sign":1.0}]}},"environment":{"workers":[{"worker_id":[34,35,5,7],"operation_ids":[1],"proc_speed":20.0,"net_speed":54.0,"storage_size":65.0},{"worker_id":[3,102],"operation_ids":[1],"proc_speed":250.0,"net_speed":20.0,"storage_size":200.0}],"operations":[{"operation_id":1,"difficult":1,"input_flow_type_id":1,"output_flow_type_id":2}]},"connections":[{"gsLabel":"102","scLabel":"34","begin":1741557800,"end":1741558180},{"gsLabel":"102","scLabel":"35","begin":1741561945,"end":1741562425},{"gsLabel":"102","scLabel":"34","begin":1741563345,"end":1741563835}]}
+{
+    "task": {
+        "id": 0,
+        "flows": [
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    7
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741544294,
+                "input_time_finish": 1741544295
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    7
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741544379,
+                "input_time_finish": 1741544380
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    7
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741545877,
+                "input_time_finish": 1741545878
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    7
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741545939,
+                "input_time_finish": 1741545940
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    5
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741547149,
+                "input_time_finish": 1741547150
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    5
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741547232,
+                "input_time_finish": 1741547233
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    34
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741547304,
+                "input_time_finish": 1741547305
+            },
+            {
+                "flow_type_id": 1,
+                "input_workers": [
+                    34
+                ],
+                "input_size": 65.0,
+                "input_time_start": 1741547369,
+                "input_time_finish": 1741547370
+            },
+            {
+                "flow_type_id": 2,
+                "output_workers": [
+                    3888,
+                    3889
+                ],
+                "output_time_start": 1741542032,
+                "output_time_finish": 1741549292
+            }
+        ],
+        "criterion": {
+            "sign": "MAX",
+            "indicators": {
+                "result_flows": 0.9,
+                "lost_flows": -0.1
+            }
+        },
+        "constraints": [],
+        "indicators": {
+            "lost_flows": [
+                {
+                    "type": "lost",
+                    "flow": "*",
+                    "interval": "*",
+                    "object": "*",
+                    "sign": 1.0
+                }
+            ],
+            "result_flows": [
+                {
+                    "type": "resultflow",
+                    "flow": "2",
+                    "interval": "*",
+                    "object": "*",
+                    "sign": 1.0
+                }
+            ]
+        }
+    },
+    "environment": {
+        "workers": [
+            {
+                "worker_id": [
+                    34,
+                    5,
+                    7
+                ],
+                "operation_ids": [],
+                "proc_speed": 20.0,
+                "net_speed": 54.0,
+                "storage_size": 65.0
+            },
+            {
+                "worker_id": [
+                    3888,
+                    3889
+                ],
+                "operation_ids": [
+                    1
+                ],
+                "proc_speed": 250.0,
+                "net_speed": 1000.0,
+                "storage_size": 200.0
+            }
+        ],
+        "operations": [
+            {
+                "operation_id": 1,
+                "difficult": 1,
+                "input_flow_type_id": 1,
+                "output_flow_type_id": 2
+            }
+        ]
+    },
+    "connections": [
+        {
+            "gsLabel": "3889",
+            "scLabel": "34",
+            "begin": 1741544302,
+            "end": 1741544567
+        },
+        {
+            "gsLabel": "3889",
+            "scLabel": "5",
+            "begin": 1741545557,
+            "end": 1741545922
+        },
+        {
+            "gsLabel": "3888",
+            "scLabel": "7",
+            "begin": 1741545682,
+            "end": 1741546172
+        },
+        {
+            "gsLabel": "3888",
+            "scLabel": "34",
+            "begin": 1741546972,
+            "end": 1741547457
+        },
+        {
+            "gsLabel": "3888",
+            "scLabel": "5",
+            "begin": 1741548507,
+            "end": 1741548982
+        },
+        {
+            "scLable1": "34",
+            "scLable2": "5",
+            "begin": 1741545052,
+            "end": 1741545262
+        },
+        {
+            "scLable1": "34",
+            "scLable2": "7",
+            "begin": 1741546417,
+            "end": 1741546732
+        },
+        {
+            "scLable1": "34",
+            "scLable2": "5",
+            "begin": 1741547887,
+            "end": 1741548097
+        },
+        {
+            "scLable1": "34",
+            "scLable2": "7",
+            "begin": 1741549257,
+            "end": 1741549297
+        }
+    ]
+}

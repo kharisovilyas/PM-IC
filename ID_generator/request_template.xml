@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='utf-8'?>
+<XMLDocument version="1.0">
+  <comment/>
+  <task>
+    <flows>
+      <type id="1"/>
+      <type id="2"/>
+    </flows>
+    <process>
+      <type id="1" time="0.004">
+        <input>
+          <type id="1" size="1"/>
+        </input>
+        <output>
+          <type id="2" size="1"/>
+        </output>
+      </type>
+    </process>
+    <transport>
+      <type id="1" time="1">
+        <input>
+          <type id="1" size="1000.0"/>
+        </input>
+        <output>
+          <type id="1" size="1000.0"/>
+        </output>
+      </type>
+      <type id="2" time="1">
+        <input>
+          <type id="2" size="1000.0"/>
+        </input>
+        <output>
+          <type id="2" size="1000.0"/>
+        </output>
+      </type>
+      <type id="3" time="1">
+        <input>
+          <type id="2" size="54.0"/>
+        </input>
+        <output>
+          <type id="2" size="54.0"/>
+        </output>
+      </type>
+      <type id="4" time="1">
+        <input>
+          <type id="1" size="54.0"/>
+        </input>
+        <output>
+          <type id="1" size="54.0"/>
+        </output>
+      </type>
+    </transport>
+    <storage>
+      <type id="1">
+        <input>
+          <type id="1"/>
+          <type id="2"/>
+        </input>
+      </type>
+    </storage>
+    <struct id="1" time="2262" start_time="1741542032" end_time="1741544294">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="2" time="1" start_time="1741544294" end_time="1741544295">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" input_1="65.0" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="3" time="7" start_time="1741544295" end_time="1741544302">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="4" time="77" start_time="1741544302" end_time="1741544379">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3889" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="5" time="1" start_time="1741544379" end_time="1741544380">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" input_1="65.0" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3889" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="6" time="187" start_time="1741544380" end_time="1741544567">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3889" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="7" time="485" start_time="1741544567" end_time="1741545052">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="8" time="210" start_time="1741545052" end_time="1741545262">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="34" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="9" time="295" start_time="1741545262" end_time="1741545557">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="10" time="125" start_time="1741545557" end_time="1741545682">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3889" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="11" time="195" start_time="1741545682" end_time="1741545877">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+      <link id1="3889" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="12" time="1" start_time="1741545877" end_time="1741545878">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" input_1="65.0" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+      <link id1="3889" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="13" time="44" start_time="1741545878" end_time="1741545922">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+      <link id1="3889" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="14" time="17" start_time="1741545922" end_time="1741545939">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="15" time="1" start_time="1741545939" end_time="1741545940">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" input_1="65.0" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="16" time="232" start_time="1741545940" end_time="1741546172">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="17" time="245" start_time="1741546172" end_time="1741546417">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="18" time="315" start_time="1741546417" end_time="1741546732">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="34" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="19" time="240" start_time="1741546732" end_time="1741546972">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="20" time="177" start_time="1741546972" end_time="1741547149">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="21" time="1" start_time="1741547149" end_time="1741547150">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" input_1="65.0" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="22" time="82" start_time="1741547150" end_time="1741547232">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="23" time="1" start_time="1741547232" end_time="1741547233">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" input_1="65.0" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="24" time="71" start_time="1741547233" end_time="1741547304">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="25" time="1" start_time="1741547304" end_time="1741547305">
+      <elem id="34" input_1="65.0" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="26" time="64" start_time="1741547305" end_time="1741547369">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="27" time="1" start_time="1741547369" end_time="1741547370">
+      <elem id="34" input_1="65.0" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="28" time="87" start_time="1741547370" end_time="1741547457">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="34" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="29" time="430" start_time="1741547457" end_time="1741547887">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="30" time="210" start_time="1741547887" end_time="1741548097">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="34" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="31" time="410" start_time="1741548097" end_time="1741548507">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="32" time="475" start_time="1741548507" end_time="1741548982">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="3888" id2="5" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="33" time="275" start_time="1741548982" end_time="1741549257">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+    </struct>
+    <struct id="34" time="35" start_time="1741549257" end_time="1741549292">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" output_2="" process_1="" storage_1="200.0"/>
+      <elem id="3889" output_2="" process_1="" storage_1="200.0"/>
+      <link id1="34" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <struct id="35" time="5" start_time="1741549292" end_time="1741549297">
+      <elem id="34" storage_1="65.0"/>
+      <elem id="5" storage_1="65.0"/>
+      <elem id="7" storage_1="65.0"/>
+      <elem id="3888" process_1="" storage_1="200.0"/>
+      <elem id="3889" process_1="" storage_1="200.0"/>
+      <link id1="34" id2="7" transport_3="" transport_4=""/>
+    </struct>
+    <selectors>
+      <selector id="1" sign="-0.1">
+        <lost flow="*" interval="*" object="*" sign="1.0"/>
+      </selector>
+      <selector id="2" sign="0.9">
+        <resultflow flow="2" interval="*" object="*" sign="1.0"/>
+      </selector>
+    </selectors>
+    <criterion sign="MAX">
+      <selector id="2"/>
+      <selector id="1"/>
+    </criterion>
+    <constraints/>
+  </task>
+</XMLDocument>

@@ -173,8 +173,9 @@ def make_struct(json_data, struct_info):
                         size = str(flow['output_size']) if 'output_size' in flow else ""
                         elem.set('output_' + p, size)
             # вставляем операции обработки и хранения
-            for oper in process_workers_map[worker_id]:
-                elem.set('process_' + str(oper), '')
+            if worker_id in process_workers_map:
+                for oper in process_workers_map[worker_id]:
+                    elem.set('process_' + str(oper), '')
             elem.set('storage_1', str(worker['storage_size']))
             struct.append(elem)
     

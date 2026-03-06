@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Дмитрий Александрович Павлов'
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 from copy import copy, deepcopy
 import xml.etree.ElementTree as ET
@@ -479,7 +479,7 @@ class PDATask(object):
         res += '\tSIZE: ' + str(self.variablesCount) + ' x ' + str(self.constraintsCount)
         return res
 
-    def __init__(self, Filename: str=None, XML: ET=None, Name = None, TimeLimit: float=None) -> None:
+    def __init__(self, Filename: str=None, XML: ET=None, Name = None, TimeLimit: float=None, enable_reduction=True) -> None:
         """конструктор класса ЗАДАЧА"""
         self.Name = str(Name) if Name else 'Noname_task'
         #
@@ -494,6 +494,8 @@ class PDATask(object):
         self._Report = None # XML
 
         self.TimeLimit = TimeLimit
+
+        self.enable_reduction = enable_reduction
 
         if Filename:
             self.fromFile(Filename=Filename)
@@ -595,6 +597,392 @@ class PDATask(object):
             self._Report = self.getXMLReport()
             self.BPMN_diagram(NotDiagram=True)
         return self._Report
+    
+    ####################################################################################
+    def reduce(self, verbose=False):
+        """
+        Улучшенная версия редукции с учётом нулевых значений атрибутов.
+        """
+        from collections import deque, defaultdict
+
+        root = self._Tree.getroot().find('task')
+        intervals = [int(struct.get('id')) for struct in root.findall('struct')]
+        objects = set()
+        flows = set()
+        for flow in root.find('flows').findall('type'):
+            flows.add(flow.get('id'))
+
+        # Технологии обработки
+        process_techs = {}
+        for proc in root.find('process').findall('type'):
+            pid = proc.get('id')
+            input_set = {io.get('id') for io in proc.find('input').findall('type')} if proc.find('input') else set()
+            output_set = {io.get('id') for io in proc.find('output').findall('type')} if proc.find('output') else set()
+            process_techs[pid] = (input_set, output_set)
+
+        # Технологии передачи
+        transport_techs = {}
+        for trans in root.find('transport').findall('type'):
+            tid = trans.get('id')
+            input_set = {io.get('id') for io in trans.find('input').findall('type')} if trans.find('input') else set()
+            output_set = {io.get('id') for io in trans.find('output').findall('type')} if trans.find('output') else set()
+            transport_techs[tid] = (input_set, output_set)
+
+        # Хранилища: storage_id -> set of flows
+        storage_flows = defaultdict(set)
+        for stor in root.find('storage').findall('type'):
+            sid = stor.get('id')
+            if stor.find('input'):
+                storage_flows[sid] = {io.get('id') for io in stor.find('input').findall('type')}
+
+        # Структуры данных
+        links_by_interval = defaultdict(list)          # t -> list of (obj1, obj2, direction, tech_id)
+        obj_process_by_interval = defaultdict(lambda: defaultdict(set))
+        obj_storage_by_interval = defaultdict(lambda: defaultdict(set))
+        objects_in_interval = defaultdict(set)
+
+        # Источники и цели
+        sources = set()   # (obj, flow, interval)
+        targets = set()   # (obj, flow, interval)
+
+        # Ёмкости
+        send_capacity = defaultdict(dict)    # (interval, obj) -> float or None if '*'
+        receive_capacity = defaultdict(dict)
+        total_capacity = defaultdict(dict)
+
+        for struct in root.findall('struct'):
+            t = int(struct.get('id'))
+            for elem in struct.findall('elem'):
+                obj = elem.get('id')
+                objects.add(obj)
+                objects_in_interval[t].add(obj)
+
+                for attr, val in elem.attrib.items():
+                    if attr.startswith('process_'):
+                        tech = attr.split('_')[1]
+                        # Если значение "0" – игнорируем
+                        if val != '' and val != '*':
+                            try:
+                                if float(val) == 0:
+                                    continue
+                            except ValueError:
+                                pass
+                        obj_process_by_interval[t][obj].add(tech)
+
+                    elif attr.startswith('storage_'):
+                        stor = attr.split('_')[1]
+                        if val != '' and val != '*':
+                            try:
+                                if float(val) == 0:
+                                    continue
+                            except ValueError:
+                                pass
+                        obj_storage_by_interval[t][obj].add(stor)
+
+                    elif attr.startswith('input_') and val.strip():
+                        try:
+                            if float(val) > 0:
+                                flow = attr.split('_')[1]
+                                sources.add((obj, flow, t))
+                        except ValueError:
+                            pass
+
+                    elif attr.startswith('output_') and val.strip():
+                        try:
+                            if float(val) > 0:
+                                flow = attr.split('_')[1]
+                                targets.add((obj, flow, t))
+                        except ValueError:
+                            pass
+
+                    elif attr == 'send_capacity':
+                        if val != '':
+                            if val == '*':
+                                send_capacity[(t, obj)] = None
+                            else:
+                                try:
+                                    cap = float(val)
+                                    if cap > 0:
+                                        send_capacity[(t, obj)] = cap
+                                    elif cap == 0:
+                                        send_capacity[(t, obj)] = 0
+                                except ValueError:
+                                    pass
+
+                    elif attr == 'receive_capacity':
+                        if val != '':
+                            if val == '*':
+                                receive_capacity[(t, obj)] = None
+                            else:
+                                try:
+                                    cap = float(val)
+                                    if cap > 0:
+                                        receive_capacity[(t, obj)] = cap
+                                    elif cap == 0:
+                                        receive_capacity[(t, obj)] = 0
+                                except ValueError:
+                                    pass
+
+                    elif attr == 'total_capacity':
+                        if val != '':
+                            if val == '*':
+                                total_capacity[(t, obj)] = None
+                            else:
+                                try:
+                                    cap = float(val)
+                                    if cap > 0:
+                                        total_capacity[(t, obj)] = cap
+                                    elif cap == 0:
+                                        total_capacity[(t, obj)] = 0
+                                except ValueError:
+                                    pass
+
+            for link in struct.findall('link'):
+                id1 = link.get('id1')
+                id2 = link.get('id2')
+                direction = link.get('direction', 'both')
+                for attr, val in link.attrib.items():
+                    if attr.startswith('transport_'):
+                        tech = attr.split('_')[1]
+                        if val != '' and val != '*':
+                            try:
+                                if float(val) == 0:
+                                    continue
+                            except ValueError:
+                                pass
+                        links_by_interval[t].append((id1, id2, direction, tech))
+
+        # Добавляем цели из целевой функции
+        for key, coeff in self._Objective.getACoeffDict().items():
+            typ = get_key_type(key)
+            if typ == 'resultflow' and coeff > 0:
+                obj = get_key_object(key)
+                flow = get_key_flow(key)
+                t = get_key_interval(key)
+                if obj is not None:
+                    obj = str(obj)
+                if flow is not None:
+                    flow = str(flow)
+                if obj != '*' and flow != '*' and t != '*':
+                    targets.add((obj, flow, t))
+                elif obj == '*' and flow != '*' and t != '*':
+                    for obj_id in objects_in_interval.get(t, []):
+                        targets.add((obj_id, flow, t))
+
+        if verbose:
+            print(f"Источники: {len(sources)}")
+            print(f"Цели: {len(targets)}")
+
+        # ---- Прямой обход ----
+        reachable = set(sources)
+        queue = deque(sources)
+
+        while queue:
+            obj, flow, t = queue.popleft()
+
+            # Обработка
+            for tech in obj_process_by_interval[t][obj]:
+                in_flows, out_flows = process_techs[tech]
+                if flow in in_flows:
+                    if all((obj, f, t) in reachable for f in in_flows):
+                        for f_out in out_flows:
+                            new_key = (obj, f_out, t)
+                            if new_key not in reachable:
+                                reachable.add(new_key)
+                                queue.append(new_key)
+
+            # Передача
+            for (obj1, obj2, direction, tech) in links_by_interval[t]:
+                in_flows, out_flows = transport_techs[tech]
+                # Проверка capacity
+                if obj == obj1 and direction in ('both', 'forward') and flow in in_flows:
+                    if send_capacity.get((t, obj1)) == 0 or receive_capacity.get((t, obj2)) == 0:
+                        continue
+                    dest = obj2
+                    new_key = (dest, flow, t)
+                    if new_key not in reachable:
+                        reachable.add(new_key)
+                        queue.append(new_key)
+                elif obj == obj2 and direction in ('both', 'backward') and flow in in_flows:
+                    if send_capacity.get((t, obj2)) == 0 or receive_capacity.get((t, obj1)) == 0:
+                        continue
+                    dest = obj1
+                    new_key = (dest, flow, t)
+                    if new_key not in reachable:
+                        reachable.add(new_key)
+                        queue.append(new_key)
+
+            # Хранение
+            if t + 1 in intervals:
+                for stor in obj_storage_by_interval[t][obj]:
+                    if flow in storage_flows[stor]:
+                        new_key = (obj, flow, t + 1)
+                        if new_key not in reachable:
+                            reachable.add(new_key)
+                            queue.append(new_key)
+
+        # ---- Обратный обход ----
+        needed = set(targets)
+        queue = deque(targets)
+
+        while queue:
+            obj, flow, t = queue.popleft()
+
+            # Обработка
+            for tech in obj_process_by_interval[t][obj]:
+                in_flows, out_flows = process_techs[tech]
+                if flow in out_flows:
+                    for f_in in in_flows:
+                        new_key = (obj, f_in, t)
+                        if new_key not in needed:
+                            needed.add(new_key)
+                            queue.append(new_key)
+
+            # Передача
+            for (obj1, obj2, direction, tech) in links_by_interval[t]:
+                in_flows, out_flows = transport_techs[tech]
+
+                # Прямое направление
+                if obj == obj2 and direction in ('both', 'forward') and flow in out_flows:
+                    if send_capacity.get((t, obj1)) == 0 or receive_capacity.get((t, obj2)) == 0:
+                        continue
+                    src = obj1
+                    new_key = (src, flow, t)
+                    if new_key not in needed:
+                        needed.add(new_key)
+                        queue.append(new_key)
+
+                # Обратное направление
+                if obj == obj1 and direction in ('both', 'backward') and flow in out_flows:
+                    if send_capacity.get((t, obj2)) == 0 or receive_capacity.get((t, obj1)) == 0:
+                        continue
+                    src = obj2
+                    new_key = (src, flow, t)
+                    if new_key not in needed:
+                        needed.add(new_key)
+                        queue.append(new_key)
+
+            # Хранение (обратное)
+            if t - 1 in intervals:
+                for stor in obj_storage_by_interval[t-1][obj]:
+                    if flow in storage_flows[stor]:
+                        new_key = (obj, flow, t - 1)
+                        if new_key not in needed:
+                            needed.add(new_key)
+                            queue.append(new_key)
+
+        # ---- Пересечение ----
+        useful_triples = reachable & needed
+        if verbose:
+            print(f"Полезных троек: {len(useful_triples)}")
+
+        if not useful_triples:
+            if verbose:
+                print("Нет полезных троек. Задача пуста.")
+            new_task = deepcopy(self)
+            new_task._Variables = {}
+            new_task._Objective = PDAConstraint(self._Objective.getSign())
+            new_task._Constraints = []
+            return new_task
+
+        # ---- Полезные технологии и хранилища ----
+        useful_techs_process = set()
+        useful_techs_transport = set()
+        useful_storage = set()
+
+        for tech, (_, out_flows) in process_techs.items():
+            if any((obj, f, t) in useful_triples for obj in objects for t in intervals for f in out_flows):
+                useful_techs_process.add(tech)
+
+        for tech, (in_flows, out_flows) in transport_techs.items():
+            if any((obj, f, t) in useful_triples for obj in objects for t in intervals for f in in_flows.union(out_flows)):
+                useful_techs_transport.add(tech)
+
+        for stor, flows_set in storage_flows.items():
+            if any((obj, f, t) in useful_triples for obj in objects for t in intervals for f in flows_set):
+                useful_storage.add(stor)
+
+        # ---- Фильтрация переменных ----
+        def is_key_useful(key):
+            typ = get_key_type(key)
+            obj = get_key_object(key)
+            obj2 = get_key_object2(key)
+            flow = get_key_flow(key)
+            tech = get_key_tech(key)
+            t = get_key_interval(key)
+
+            # Приводим к строкам
+            if obj is not None:
+                obj = str(obj)
+            if obj2 is not None:
+                obj2 = str(obj2)
+            if flow is not None:
+                flow = str(flow)
+            if tech is not None:
+                tech = str(tech)
+
+            if typ in ('inputflow', 'resultflow', 'lost'):
+                return (obj, flow, t) in useful_triples
+            elif typ in ('to_process', 'from_process'):
+                return (obj, flow, t) in useful_triples and tech in useful_techs_process
+            elif typ == 'process':
+                return tech in useful_techs_process
+            elif typ in ('to_transport', 'from_transport'):
+                return (obj, flow, t) in useful_triples and tech in useful_techs_transport
+            elif typ == 'transport':
+                return tech in useful_techs_transport
+            elif typ == 'transport_all':
+                for (o1, o2, direction, tec) in links_by_interval[t]:
+                    if o1 == obj and o2 == obj2 and direction in ('both', 'forward') and tec in useful_techs_transport:
+                        if send_capacity.get((t, obj)) == 0 or receive_capacity.get((t, obj2)) == 0:
+                            continue
+                        return True
+                    if o1 == obj2 and o2 == obj and direction in ('both', 'backward') and tec in useful_techs_transport:
+                        if send_capacity.get((t, obj2)) == 0 or receive_capacity.get((t, obj)) == 0:
+                            continue
+                        return True
+                return False
+            elif typ == 'storage':
+                return (obj, flow, t) in useful_triples and tech in useful_storage
+            elif typ == 'process_all':
+                return any(tec in useful_techs_process for tec in obj_process_by_interval[t][obj])
+            elif typ == 'time':
+                has_process = any(tec in useful_techs_process for tec in
+                                [tech for sub in obj_process_by_interval[t].values() for tech in sub])
+                has_transport = any(tec in useful_techs_transport for (_, _, _, tec) in links_by_interval[t])
+                return has_process or has_transport
+            else:
+                return True
+
+        # Создаём новую задачу
+        new_task = deepcopy(self)
+        new_task._Variables = {}
+        new_task._Objective = PDAConstraint(self._Objective.getSign())
+        new_task._Constraints = []
+
+        idx = 0
+        for key in self._Variables:
+            if is_key_useful(key):
+                new_task._Variables[key] = idx
+                coeff = self._Objective.getCoeff(key)
+                if coeff is not None:
+                    new_task._Objective.setCoeff(key, coeff)
+                idx += 1
+
+        for constr in self._Constraints:
+            new_constr = PDAConstraint(constr.getSign())
+            new_constr.setBValue(constr.getBValue())
+            for key, coeff in constr.getACoeffDict().items():
+                if key in new_task._Variables:
+                    new_constr.setCoeff(key, coeff)
+            if new_constr.getACoeffDict():
+                new_task._Constraints.append(new_constr)
+
+        if verbose:
+            print(f"После фильтрации: {len(new_task._Variables)} переменных, {len(new_task._Constraints)} ограничений")
+
+        return new_task
+    ####################################################################################
     
     #@property
     def BPMN_diagram(self, NotDiagram=False, NotDraw=True):
@@ -1503,7 +1891,26 @@ class PDATask(object):
         # после формирования ограничений и целевой функции НЕОБХОДИМО собрать переменные с итоговыми индексами
         self.collectVariables()
 
-    def solve(self: PDATask, first_decision_only=False) -> None:
+    def solve(self: PDATask, first_decision_only=False, enable_reduction=None) -> None:
+        # Принудительная сборка мусора
+        #gc.collect()
+
+        ########################################################################################
+        if enable_reduction is None:
+            enable_reduction = getattr(self, 'enable_reduction', False)
+
+        if enable_reduction and not hasattr(self, '_reduced'):
+            reduced = self.reduce(verbose=False)
+            print('РЕДУЦИРОВАННАЯ ЗАДАЧА ЛП\n', len(reduced.CVector), 'переменных и', len(reduced.BVector), 'ограничений')
+            #input('Посмотрел редукцию - нажми ENTER')
+            reduced.solve(first_decision_only=first_decision_only, enable_reduction=False)
+            # Переносим план
+            full_plan = {key: reduced._Plan.getPDict().get(key, 0.0) for key in self._Variables}
+            self._Plan = PDAPlan(full_plan)
+            self._reduced = True
+            return
+        ########################################################################################
+
         """Стандартное решение задачи линейного программирования"""
         if self.isMaximize:
             prob = LpProblem(self._Filename, LpMaximize)
@@ -1539,39 +1946,26 @@ class PDATask(object):
 
         # Повторное решение задачи ЛП с минимизацией общего времени выполнения операций (отсечка лишних цепочек операций)
         NEW_TASK = deepcopy(self)
+        # PDA: обязательно это оставить как FALSE, на втором этапе нам редукция не нужна!!! (она была проведена при получении первого решения по исходной целевой, мы делаем deepcopy уже редуцированной задачи)
+        NEW_TASK.enable_reduction = False
+        if hasattr(NEW_TASK, '_reduced'):
+            delattr(NEW_TASK, '_reduced')
         
         # целевая функция на минимизацию суммарного времени всех операций
         c_new = PDAConstraint('MIN')
         root = NEW_TASK._Tree.getroot().find('task')
         for k in root.findall('struct'):
             for i in k.findall('elem'):
-                c_new.setCoeff(
-                    (
-                        'process_all',
-                        i.attrib['id'],
-                        k.attrib['id']
-                    ),
-                    1
-                )
+                key_process = ('process_all', int(i.attrib['id']), int(k.attrib['id']))
+                if key_process in NEW_TASK._Variables:
+                    c_new.setCoeff(key_process, 1)
             for i in k.findall('link'):
-                c_new.setCoeff(
-                    (
-                        'transport_all',
-                        i.attrib['id1'],
-                        i.attrib['id2'],
-                        k.attrib['id']
-                    ),
-                    1
-                )
-                c_new.setCoeff(
-                    (
-                        'transport_all',
-                        i.attrib['id2'],
-                        i.attrib['id1'],
-                        k.attrib['id']
-                    ),
-                    1
-                )
+                key_transport1 = ('transport_all', int(i.attrib['id1']), int(i.attrib['id2']), int(k.attrib['id']))
+                key_transport2 = ('transport_all', int(i.attrib['id2']), int(i.attrib['id1']), int(k.attrib['id']))
+                if key_transport1 in NEW_TASK._Variables:
+                    c_new.setCoeff(key_transport1, 1)
+                if key_transport2 in NEW_TASK._Variables:
+                    c_new.setCoeff(key_transport2, 1)
         NEW_TASK.setObjective(c_new)
         
         # ограничение на недопущение снижения качества по полученной ранее целевой функции

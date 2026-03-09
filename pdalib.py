@@ -11,6 +11,7 @@ from pulp import LpProblem, LpVariable, LpMinimize, LpMaximize
 from pulp import PULP_CBC_CMD, LpContinuous, lpDot
 
 from bpmn_diagram.main import make_techchains_bpmn_from_report
+from mip import Model, xsum, CONTINUOUS, MAXIMIZE, MINIMIZE, CBC, OptimizationStatus
 
 #have_stars = False
 
@@ -597,7 +598,7 @@ class PDATask(object):
             self._Report = self.getXMLReport()
             self.BPMN_diagram(NotDiagram=True)
         return self._Report
-    
+
     ####################################################################################
     def reduce(self, verbose=False):
         """
@@ -983,7 +984,7 @@ class PDATask(object):
 
         return new_task
     ####################################################################################
-    
+
     #@property
     def BPMN_diagram(self, NotDiagram=False, NotDraw=True):
         new_tree_report_full = deepcopy(self._Tree)
@@ -991,7 +992,7 @@ class PDATask(object):
         new_root_report_full.append(self.REPORT.getroot())
         indent(new_root_report_full)
         bpmn_diagram_ET,_,techchains = make_techchains_bpmn_from_report(XMLReport=new_tree_report_full, NotDraw=NotDraw, task_name=self.Name, NotDiagram = NotDiagram)
-        
+
         report_techchains = ET.Element('techchains')
         for techchain in techchains:
             chain = ET.Element('chain', {'interval':techchain[0].attrib['interval']})
@@ -1795,16 +1796,16 @@ class PDATask(object):
                         [elem.attrib['id'] for elem in root.findall('task/transport/type')] + \
                         [elem.attrib['id'] for elem in root.findall('task/storage/type')]
                         ))
-            
+
             def get_variables_from_stars(variable):
                 '''Получение переборных значений для указанного тэга где "*"'''
                 star_tags = [k for k,v in variable.attrib.items() if v == "*"]  # Список тэгов, которые надо распаковать ("*")
-                
+
                 # При рекурсивном вызове могут быть недопустимые сочетания индексов тэгов, нужно их проверить
                 variable_for_check = get_key_from_ET(variable) if not star_tags else ()
                 if variable_for_check not in self._Variables and not star_tags: # переменная бракуется, если она без "звезд" и ее нет среди переменных задачи
                     return []
-                
+
                 # Если нет звёздочек, возвращаем переменную как есть
                 if not star_tags:
                     return [variable]
@@ -1851,17 +1852,17 @@ class PDATask(object):
                         if new_star_variables:
                             variables_from_stars.extend(new_star_variables)
                 return variables_from_stars #if variables_from_stars else [variable]
-            
+
             # Чтобы учесть все доп. переменные из доп. ограничений необходимо отследить чтобы все генерируемые переменные существовали
             self.collectVariables()
             task = selectors = root.find('task')
             selectors = root.find('task/selectors')
             selectors_tmp = ET.Element(selectors.tag, selectors.attrib)
-            
+
             for selector in selectors.findall('selector'):
                 selector_tmp = ET.Element(selector.tag, selector.attrib)
                 selectors_tmp.append(selector_tmp)
-                
+
                 for variable in selector:
                     # Добавляем "распакованные" переменные
                     new_star_variables = get_variables_from_stars(variable)
@@ -1871,7 +1872,7 @@ class PDATask(object):
                     # Если переменная не содержала звёздочек, добавляем её как есть
                     else:
                         selector_tmp.append(deepcopy(variable))
-            
+
             # Заменяем старые селекторы на новые
             task.remove(selectors)
             task.append(selectors_tmp)
@@ -1913,33 +1914,55 @@ class PDATask(object):
 
         """Стандартное решение задачи линейного программирования"""
         if self.isMaximize:
-            prob = LpProblem(self._Filename, LpMaximize)
+            model = Model(sense=MAXIMIZE, solver_name=CBC)
         else:
-            prob = LpProblem(self._Filename, LpMinimize)
+            model = Model(sense=MINIMIZE, solver_name=CBC)
 
-        x = LpVariable.matrix("x",
-        (list(range(len(self.CVector)))), 0, None, LpContinuous)
+        # Количество переменных
+        n = len(self.CVector)
 
-        # формирование целевой функции
-        prob += lpDot(x, self.CVector)
+        # Создаём переменные (непрерывные, нижняя граница 0, верхняя не ограничена)
+        x = [model.add_var(name=f'x_{i}', lb=0, ub=float('inf'), var_type=CONTINUOUS) for i in range(n)]
 
-        # формирование ограничений
+        # Целевая функция: сумма CVector[i] * x[i]
+        model.objective = xsum(self.CVector[i] * x[i] for i in range(n))
+
+        # Ограничения
         for constr in self._Constraints:
-            if constr.getSign() == '==':
-                prob += lpDot(x, constr.getAVector(self._Variables)) == constr.getBValue()
-            elif constr.getSign() == '<=':
-                prob += lpDot(x, constr.getAVector(self._Variables)) <= constr.getBValue()
-            elif constr.getSign() == '>=':
-                prob += lpDot(x, constr.getAVector(self._Variables)) >= constr.getBValue()
+            # Получаем вектор коэффициентов для текущего ограничения (предполагается список длины n)
+            av = constr.getAVector(self._Variables)   # должно возвращать list[float]
+            b = constr.getBValue()
+            # Строим линейное выражение
+            expr = xsum(av[i] * x[i] for i in range(n))
 
-        prob.solve(PULP_CBC_CMD(msg=0, timeLimit=self.TimeLimit))
+            # Добавляем ограничение в зависимости от знака
+            sign = constr.getSign()
+            if sign == '==':
+                model += expr == b
+            elif sign == '<=':
+                model += expr <= b
+            elif sign == '>=':
+                model += expr >= b
+
+        # Устанавливаем ограничение по времени и запускаем решение
+        model.optimize(max_seconds=360)
+
         #print(prob.status)
         #print({k:v for k,v in self._Objective.getACoeffDict().items() if v !=0})
         # сбор плана происходит только в случае, если решается вторичная задача (во избежание зацикливания)
         if first_decision_only:
+            result_vars = []
+            for var in x:   # список переменных MIP
+                class VarWrapper:
+                    __slots__ = ('name', 'varValue')
+                    def __init__(self, name, value):
+                        self.name = name
+                        self.varValue = value
+                result_vars.append(VarWrapper(var.name, var.x))
+
             self._Plan = PDAPlan(
-                ResultVariables=prob.variables(),
-                VariablesDict=self._Variables
+                ResultVariables=result_vars,
+                VariablesDict=self._Variables   # передаём исходные объекты Var, если нужно
             )
             # убрали вторичный вывов целевой функции
             return
@@ -1950,7 +1973,7 @@ class PDATask(object):
         NEW_TASK.enable_reduction = False
         if hasattr(NEW_TASK, '_reduced'):
             delattr(NEW_TASK, '_reduced')
-        
+
         # целевая функция на минимизацию суммарного времени всех операций
         c_new = PDAConstraint('MIN')
         root = NEW_TASK._Tree.getroot().find('task')
@@ -1967,9 +1990,29 @@ class PDATask(object):
                 if key_transport2 in NEW_TASK._Variables:
                     c_new.setCoeff(key_transport2, 1)
         NEW_TASK.setObjective(c_new)
-        
+
         # ограничение на недопущение снижения качества по полученной ранее целевой функции
-        obj_val = prob.objective.value()
+        if model.status == OptimizationStatus.OPTIMAL:
+            obj_val = model.objective_value
+            # можно отметить, что оптимально
+        elif model.status == OptimizationStatus.FEASIBLE:
+            obj_val = model.objective_value
+            # решение допустимо, но не оптимально
+        elif model.status == OptimizationStatus.INFEASIBLE:
+            obj_val = None
+            # неразрешимо
+        elif model.status == OptimizationStatus.UNBOUNDED:
+            obj_val = None
+            # неограничена
+        elif model.status == OptimizationStatus.TIME_LIMIT:
+             # если достигнут лимит времени, возможно, есть допустимое решение
+             if model.objective_value is not None:
+                 obj_val = model.objective_value
+             else:
+                 obj_val = None
+        else:
+            obj_val = None
+        #----------------------------------------------------------
         a_new = deepcopy(self._Objective)
         a_new.setSign('==')
         a_new.setBValue(obj_val)

@@ -14,7 +14,7 @@ pandas==2.3.3
 pillow==12.0.0
 plotly==6.5.0
 progress==1.6
-PuLP==2.7.0
+mip==1.17.2
 pyparsing==3.2.5
 python-dateutil==2.9.0.post0
 pytz==2025.2
